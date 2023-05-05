@@ -1,0 +1,19 @@
+Dart 
+    - É uma linguagem apresentada pela google em 2011
+    - Objetivo: ser uma opção ao TypeScript para desenvolvimento web
+    - Começou a ser mais difundida com o advento do Flutter
+        - Trouxe o dart como linguagem para o seu SDK
+        - Dart VM
+    - Linguagem muito parecida com a linguagem C
+        - Lembra muito Java, C#, Javascript e PHP
+    - É uma linguagem fortemente tipada
+        - Porém, possibilita o uso também de tipos dinâmicos
+    - É orientada a objetos
+
+    - Pode ser compilada de duas formas diferentes:
+    1 - Ahead=of-time(AOT): quando o código já é compilado para a linguagem nativa, possibilitando uma alta performance
+    2 - Just-in-time: código é compilado com a aplicação em execução, possibilitando hot-reload 
+
+    - Toda aplicação dart começa a executar a partir de um entry point "main()"
+        - Sempre inicia pela pasta bin 
+    - Lembrar sempre de configurar o arquivo launch.json para colocar o path do programa.
