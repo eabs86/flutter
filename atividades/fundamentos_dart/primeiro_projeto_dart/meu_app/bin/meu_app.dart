@@ -141,4 +141,143 @@ void main(List<String> arguments) {
   print("----------------- Trabalhando com Listas ----------------- ");
   print("#############################################################");
 
+  List<String> lstString = [];
+  var lstInt = [1, 10, 20];
+  List lstDynamic = []; //aceitas vários tipos, porque é uma lista dinâmica.
+  // para lista tipada eu não vou conseguir adicionar outros tipos.
+
+  print("Tamanho da Lista");
+  print(lstString.length);
+  print(lstInt.length);
+  print(lstDynamic.length);
+  print("Conteudo das listas");
+  print(lstString);
+  print(lstInt);
+  print(lstDynamic);
+  print("Adicionar item");
+  lstString.add("M");
+  lstString.add("B");
+  lstInt.add(30);
+  lstDynamic.add(10);
+  lstDynamic.add(9.5);
+  lstDynamic.add(true);
+  print("Listas com novos conteudos adicionados");
+  print(lstString);
+  print(lstInt);
+  print(lstDynamic);
+    print("Remover item");
+  lstString.remove("M");
+  lstInt.remove(10);
+  lstDynamic.remove(9.5);
+  print("Listas com novos conteudos");
+  print(lstString);
+  print(lstInt);
+  print(lstDynamic);
+  print("Verifica se a lista está vazia ou não");
+  print(lstString.isEmpty);
+  print(lstInt.isNotEmpty);
+  print("Verifica se um valor contém na lista");
+  print(lstString.contains("B"));
+  print(lstDynamic.contains(true));
+  print("Funcao where");
+  print(lstInt);
+  print(lstInt.where((x) => x > 9 && x < 99));
+  print("outras funcoes");
+  print(lstInt.reversed);
+
+  // trabalhando com dados map
+  print("#############################################################");
+  print("----------------- Trabalhando com tipos Dados Map ----------------- ");
+  print("#############################################################");
+
+  //onde é posivel armazena valores chave:valor.
+  Map<String, dynamic> map1 = <String,dynamic>{};
+  var map = {'zero':0, 'one':1, 'two':2};
+
+  print(map1);
+  print(map);
+
+  print("Obtem valor de chave");
+  print(map["one"]);
+
+  map.addAll({'ten':10, 'eleven':11});
+  print(map);
+
+  print("verifica se está vazio");
+  print(map.isEmpty);
+  print(map.isNotEmpty);
+
+  print("Tamanho");
+  print(map.length);
+
+  print("Contem chave");
+  print(map.containsKey("eleven"));
+  print(map.containsKey("twelve"));
+
+  //simulando um cadastro
+  map1.addAll({"nome": "Fulano"});
+  map1.addAll({"idade": 20});
+  map1.addAll({"casado": true});
+  map1.addAll({"nascimento": DateTime(1990,01,01)});
+
+  print(map1);
+  print(map1["idade"]);
+
+  // trabalhando com dados constantes
+  print("#############################################################");
+  print("----------------- Trabalhando com tipos Dados constantes ----------------- ");
+  print("#############################################################");
+
+  const String constante = "ABC";
+  //valor de constante é imutável ao longo do programa.
+  print(constante);
+
+ // trabalhando com dados dinâmicos
+  print("#############################################################");
+  print("----------------- Trabalhando com tipos Dados dinâmicos ----------------- ");
+  print("#############################################################");
+
+  dynamic variavel1 = "ABC";
+
+  print(variavel1);
+  variavel1 = 10;
+  print(variavel1);
+  variavel1 = 9.5;
+  print(variavel1);
+  variavel1 = true;
+  print(variavel1);
+  variavel1 = DateTime(2023,07,05);
+  print(variavel1);
+  variavel1 = [10, true, "A"];
+  print(variavel1);
+  //problema do dynamic é que ele não traz as propriedades em autocomplete do elemento que ele está setado.
+  //É preciso saber se o tipo tem determnada propriedade e método
+  //Se for utilizar o dynamic, saiba o que está fazendo!! Usar com moderação.
+
+ // trabalhando com dados Datetime
+  print("#############################################################");
+  print("----------------- Trabalhando com tipos Dados Datetime ----------------- ");
+  print("#############################################################");
+
+  DateTime data = DateTime.now();
+  data = DateTime.parse("2022-02-01 11:28:57");
+
+  //Partes das data
+  print(data);
+  print(data.day);
+  print(data.month);
+  print(data.year);
+  print(data.weekday); //foi uma terça feira = 2
+
+  //Soma de datas
+  print(data);
+  print(data.add(Duration(days:1)));
+  print(data);
+  print(data.subtract(Duration(hours: 1)));
+  print(data);
+
+  var data2 = DateTime.parse("2022-02-01 00:00:00");
+  print(data.isAfter(data2));
+  print(data.isBefore(data2));
+  print(data.compareTo(data2));
 }
