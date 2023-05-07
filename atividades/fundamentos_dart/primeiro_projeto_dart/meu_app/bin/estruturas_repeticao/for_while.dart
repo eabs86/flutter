@@ -76,7 +76,7 @@ void main(List<String> arguments) {
 
   var opcao = "";
   var accDo = 0.0;
-  do {
+  do {//sempre vai executar parte do laço uma vez antes de fazer o teste.
     print("Digite um número ou 'S' para sair:");
     line = stdin.readLineSync(encoding: utf8);
     opcao = line ?? "";
