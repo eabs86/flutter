@@ -4,7 +4,8 @@
 // import 'package:meu_app/funcoes/funcoes_recursivas.dart' as recursivas;
 // import 'package:meu_app/funcoes/funcoes_parametros.dart' as parametros;
 // import 'package:meu_app/funcoes/funcoes_arrow.dart' as arrow;
-import 'package:meu_app/funcoes/funcao_argfuncao.dart' as argfuncao;
+// import 'package:meu_app/funcoes/funcao_argfuncao.dart' as argfuncao;
+import 'package:meu_app/orientacao_objeto/poo.dart' as poo;
 
 void main(List<String> arguments) {
 
@@ -13,5 +14,6 @@ void main(List<String> arguments) {
   // recursivas.main();
   // parametros.main();
   // arrow.main();
-  argfuncao.main();
+  // argfuncao.main();
+  poo.main();
 }
