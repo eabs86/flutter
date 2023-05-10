@@ -30,6 +30,13 @@
             "request": "launch",
             "type": "dart",
             "program": "bin\\meu_app.dart"
+        },
+        {
+            "name": "meu_app_oo",
+            "cwd": "atividades\\poo\\meu_app_oo",
+            "request": "launch",
+            "type": "dart",
+            "program": "bin\\meu_app_oo.dart"
         }
     ]
 }
