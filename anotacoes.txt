@@ -20,3 +20,11 @@ Dart
 
     - Lembrar de sempre utilizar o lint do dart e do Flutter
         - Auxilia o código a se manter mais organizado e limpo.
+
+     - Sobre Testes:
+        - Evita erros antes de ir para produção
+        - Redução de custos com testes manuais
+        - Confiabilidade do código.
+        - O comando em dart para executar é o dart run test 
+            - Utilização de matches
+        ATENÇÃO: TODOS OS TESTES EM DART PRECISAM ACABAR COM A PALAVRA "test"
