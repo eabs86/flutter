@@ -17,3 +17,6 @@ Dart
     - Toda aplicação dart começa a executar a partir de um entry point "main()"
         - Sempre inicia pela pasta bin 
     - Lembrar sempre de configurar o arquivo launch.json para colocar o path do programa.
+
+    - Lembrar de sempre utilizar o lint do dart e do Flutter
+        - Auxilia o código a se manter mais organizado e limpo.

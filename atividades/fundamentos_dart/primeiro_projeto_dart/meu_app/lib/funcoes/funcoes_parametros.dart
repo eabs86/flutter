@@ -1,4 +1,4 @@
-import 'package:meu_app/funcoes/utils.dart' as utils;
+// import 'package:meu_app/funcoes/utils.dart' as utils;
 
 
 void main() {
