@@ -28,3 +28,22 @@ Dart
         - O comando em dart para executar é o dart run test 
             - Utilização de matches
         ATENÇÃO: TODOS OS TESTES EM DART PRECISAM ACABAR COM A PALAVRA "test"
+
+
+### ESTRUTURA DE UM PROJETO EM FLUTTER ###
+
+++ Primeiros Componentes ++
+
+Quando for criar um componente Flutter:
+- flutter create -t app -a kotlin -i swift --org comp.app.eabs trilhaapp
+- O primeiro arquivo a ser executado é o lib\main.dart
+- É chamada uma função void
+    - comando runApp
+    - A classe MyApp estende de outra
+    - Cria o evennto build é o que desenha a tela
+    - O return MaterialApp é a nossa aplicação.
+    - Stateful e Stateless são 2 tipos de construtores 
+      de páginas.
+    - Todo stateful tem que ter um estado.
+    - Evento build é o que preenche a tela.
+    - Scaffold é como se fosse um modelo template.
