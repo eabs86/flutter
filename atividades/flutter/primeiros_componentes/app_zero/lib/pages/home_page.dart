@@ -33,14 +33,28 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-                Text("Ações do usuário",
-                style: GoogleFonts.pacifico(fontSize: 40),
+                SizedBox(
+                  width: 200,
+                  height: 200,
+                  child: Container(
+                    color:Colors.deepPurple,
+                    child: Text("Ações do usuário",
+                    style: GoogleFonts.pacifico(fontSize: 40),
+                    ),
+                  ),
                 ),
                 
-                Text(
-                  "Quantidade de Cliques: $quantidadeCliques",
-                  style: GoogleFonts.padauk(fontSize: 20), //alteração da fonte em widget específico
+                SizedBox(//serve para fixar tamanhos
+                  width: 100,
+                  height: 100,
+                  child: Container(
+                    color: Colors.blue,
+                    child: Text(
+                      "Quantidade de Cliques: $quantidadeCliques",
+                      style: GoogleFonts.padauk(fontSize: 20), //alteração da fonte em widget específico
+                      ),
                   ),
+                ),
           
                 Text(
                   "O numero aleatório gerado foi $numeroGerado",
