@@ -47,3 +47,10 @@ Quando for criar um componente Flutter:
     - Todo stateful tem que ter um estado.
     - Evento build é o que preenche a tela.
     - Scaffold é como se fosse um modelo template.
+
+- Organizar as pages e services em pastas é importante para usabilidade e reaproveitamento
+  das páginas e widgets.
+
+- Para utilizar as fontes, usa-se o pacote do google fonts.
+    - Altera-se o arquivo do pubscec.yaml com a dependência.
+    - Há necessidade de habilidar o modo desenvolvedor: start ms-settings:developers
