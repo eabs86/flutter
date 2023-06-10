@@ -3,6 +3,7 @@ import 'package:tela_login/pages/dados_cadastrais.dart';
 import 'package:tela_login/pages/pagina1.dart';
 import 'package:tela_login/pages/pagina2.dart';
 import 'package:tela_login/pages/pagina3.dart';
+import 'package:tela_login/shared/widgets/custom_drawer.dart';
 
 class MainPage extends StatefulWidget {
   
@@ -23,50 +24,7 @@ class _MainPageState extends State<MainPage> {
           appBar: AppBar(
             title: const Text("Home Page"),
           ),
-          drawer: Drawer(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    InkWell(
-                        child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            width: double.infinity,
-                            child: const Text("Dados Cadastrais")),
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const DadosCadastraisPage(
-                                          texto: "Meus Dados")));
-                        }),
-                    const Divider(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    InkWell(
-                        child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            width: double.infinity,
-                            child: const Text("Configurações")),
-                        onTap: () {}),
-                    const Divider(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    InkWell(
-                        child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            width: double.infinity,
-                            child: const Text("Termos de Uso e Privacidade")),
-                        onTap: () {}),
-                    const Divider(),
-                  ]),
-            ),
-          ),
+          drawer: const CustomDrawer(),
           body: Column(
             children: [
               Expanded(
