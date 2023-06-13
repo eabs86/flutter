@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tela_login/pages/dados_cadastrais.dart';
-import 'package:tela_login/pages/pagina1.dart';
+
+import 'package:tela_login/pages/card_page.dart';
 import 'package:tela_login/pages/pagina2.dart';
 import 'package:tela_login/pages/pagina3.dart';
 import 'package:tela_login/shared/widgets/custom_drawer.dart';
@@ -37,7 +37,7 @@ class _MainPageState extends State<MainPage> {
                   },
                   // scrollDirection: Axis.vertical,
                   children: const [
-                    Pagina1Page(),
+                    CardPage(),
                     Pagina2Page(),
                     Pagina3Page(),
                   ],
@@ -49,9 +49,9 @@ class _MainPageState extends State<MainPage> {
                 },
                 currentIndex: posicaoPagina,
                 items: const [
-                  BottomNavigationBarItem(label: "Home", icon: Icon(Icons.home)),
-                  BottomNavigationBarItem(label:"Perfil",icon: Icon(Icons.person)),
-                  BottomNavigationBarItem(label:"Config.",icon: Icon(Icons.engineering)),
+                  BottomNavigationBarItem(label: "Dashboard", icon: Icon(Icons.dashboard)),
+                  BottomNavigationBarItem(label:"Rotas",icon: Icon(Icons.route_outlined)),
+                  BottomNavigationBarItem(label:"Desafios",icon: Icon(Icons.task_alt)),
                 ]),
             ],
           )),
