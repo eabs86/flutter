@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tela_login/model/card_detail.dart';
+import 'package:tela_login/pages/card_detail_page.dart';
+import 'package:tela_login/repositories/card_detail_repository.dart';
 
 class CardPage extends StatefulWidget {
   const CardPage({super.key});
@@ -8,56 +11,89 @@ class CardPage extends StatefulWidget {
 }
 
 class _CardPageState extends State<CardPage> {
+
+  CardDetail? cardDetail;
+  var cardDetailRepositoy = CardDetailRepositoy();
+
+  @override //statless não tem initState
+  void initState() { //nunca pode ser assíncrono, ou seja, não dá para usar a função async
+    super.initState();
+    carregarDados();
+    
+  }
+
+  void carregarDados() async{
+    cardDetail = await cardDetailRepositoy.get();
+    setState(() {
+      
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
         margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         width: double.infinity,
-        child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
-            ),
-            elevation: 8,
-            shadowColor: Colors.blue,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+        child: cardDetail == null ? const LinearProgressIndicator() : InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => CardDetailPage(
+                          cardDetail: cardDetail!,
+                        )));
+          },
+          child: Hero(
+            tag: cardDetail!.id,
+            child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                elevation: 8,
+                shadowColor: Colors.blue,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Image.network(
-                        "https://cdn-icons-png.flaticon.com/512/4792/4792944.png",
-                        height: 50,
+                      Row(
+                        children: [
+                          Image.network(
+                            cardDetail!.url,
+                            height: 50,
+                          ),
+                          Text(
+                            cardDetail!.title,
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w700),
+                          ),
+                        ],
                       ),
-                      const Text(
-                        "Meu Card",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w700),
+                      const SizedBox(height: 10),
+                      Text(
+                        cardDetail!.text,
+                        style: const TextStyle(fontSize: 16),
+                        textAlign: TextAlign.justify,
                       ),
+                      Container(
+                        width: double.infinity,
+                        alignment: Alignment.centerRight,
+                        child: TextButton(
+                          onPressed: () {},
+                          child: const Text(
+                            "Ler mais",
+                            style:
+                                TextStyle(decoration: TextDecoration.underline),
+                          ),
+                        ),
+                      )
                     ],
                   ),
-                  const SizedBox(height: 10),
-                  const Text(
-                    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged",
-                    style: TextStyle(fontSize: 16),
-                    textAlign: TextAlign.justify,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    alignment: Alignment.centerRight,
-                    child: TextButton(onPressed:(){} ,
-                    child: const Text(
-                      "Ler mais",
-                      style: TextStyle(
-                        decoration: TextDecoration.underline
-                      ),
-                      ),),
-                  )
-                ],
-              ),
-            )),
+                ),
+                ),
+          ),
+        ),
       ),
     ]);
   }
