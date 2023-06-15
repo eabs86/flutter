@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:tela_login/pages/card_page.dart';
-import 'package:tela_login/pages/pagina2.dart';
-import 'package:tela_login/pages/pagina3.dart';
+import 'package:tela_login/pages/image_assets.dart';
+import 'package:tela_login/pages/list_view.dart';
+import 'package:tela_login/pages/list_view_horizontal.dart';
+import 'package:tela_login/pages/tarefa_page.dart';
 import 'package:tela_login/shared/widgets/custom_drawer.dart';
 
 class MainPage extends StatefulWidget {
@@ -38,12 +40,15 @@ class _MainPageState extends State<MainPage> {
                   // scrollDirection: Axis.vertical,
                   children: const [
                     CardPage(),
-                    Pagina2Page(),
-                    Pagina3Page(),
+                    ImageAssetsPage(),
+                    ListViewPage(),
+                    TarefasPage(),
+                    ListViewHorizontalPage()
                   ],
                 ),
               ),
               BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
                 onTap: (value){
                   controller.jumpToPage(value);
                 },
@@ -51,7 +56,9 @@ class _MainPageState extends State<MainPage> {
                 items: const [
                   BottomNavigationBarItem(label: "Dashboard", icon: Icon(Icons.dashboard)),
                   BottomNavigationBarItem(label:"Rotas",icon: Icon(Icons.route_outlined)),
+                  BottomNavigationBarItem(label:"Perfis",icon: Icon(Icons.person_pin_sharp)),
                   BottomNavigationBarItem(label:"Desafios",icon: Icon(Icons.task_alt)),
+                  BottomNavigationBarItem(label:"Minha Bike",icon: Icon(Icons.pedal_bike))
                 ]),
             ],
           )),
