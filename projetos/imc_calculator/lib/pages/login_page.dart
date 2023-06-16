@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.black, //Color.fromARGB(255, 236, 241, 243),
+        backgroundColor: Color.fromARGB(255, 1, 159, 179), //Color.fromARGB(255, 236, 241, 243),
         body: SingleChildScrollView(
           //necessidade desses widget para não dar problema com teclado
           child: ConstrainedBox(
@@ -43,27 +43,30 @@ class _LoginPageState extends State<LoginPage> {
                     Expanded(child: Container()),
                     Expanded(
                       flex: 6,
-                      child: Image.network(
-                        "https://lp.dio.me/wp-content/uploads/2023/03/LOGO-DIO-COLOR-768x311.png",
-                        height: 100,
+                      child: Image.asset(
+                        "lib/images/logo_imc_app.png",
+                        height: 130,
                       ),
                     ),
-                    Expanded(child: Container()),
+                    Expanded(
+                      child: Container()),
                   ],
                 ),
-                const SizedBox(height: 30),
-                const Text("Já tem cadastro?",
+                const SizedBox(height: 20),
+                const Text("Sua saúde na palma da sua mão!",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontWeight: FontWeight.w300,
+                      fontWeight: FontWeight.bold,
                       fontSize: 30,
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 0, 0, 0),
                     )),
                 const SizedBox(height: 10),
-                const Text("Faça seu login e make the change._",
+                const Text("Monitore o seu IMC diariamente!",
                     style: TextStyle(
-                      fontWeight: FontWeight.w200,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.w700,
                       fontSize: 16,
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 0, 0, 0),
                     )),
                 const SizedBox(
                   height: 20,
@@ -78,21 +81,21 @@ class _LoginPageState extends State<LoginPage> {
                     onChanged: (value) {
                       debugPrint(value);
                     },
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                     decoration: const InputDecoration(
                       contentPadding: EdgeInsets.only(top: 0),
                       enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
                       ),
                       focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
                       ),
                       hintText: "Digite seu email",
                       hintStyle: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                          color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold),
                       prefixIcon: Icon(
                         Icons.email_outlined,
-                        color: Colors.purple,
+                        color: Color.fromARGB(255, 0, 74, 179),
                       ),
                     ),
                   ),
@@ -110,22 +113,22 @@ class _LoginPageState extends State<LoginPage> {
                     onChanged: (value) {
                       debugPrint(value);
                     },
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                     textAlignVertical: TextAlignVertical.bottom,
                     decoration: InputDecoration(
                         contentPadding: const EdgeInsets.only(bottom: 10),
                         enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
                         ),
                         focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: BorderSide(color: Color.fromARGB(255, 0, 0, 0)),
                         ),
                         hintText: "Digite sua senha",
                         hintStyle: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                            color: Color.fromARGB(255, 0, 0, 0), fontWeight: FontWeight.bold),
                         prefixIcon: const Icon(
                           Icons.lock,
-                          color: Colors.purple,
+                          color: Color.fromARGB(255, 0, 74, 179),
                         ),
                         suffixIcon: InkWell(
                           //pode fazer com o GestureDetector também
@@ -138,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                             isObscureText
                                 ? Icons.visibility_off
                                 : Icons.visibility,
-                            color: Colors.purple,
+                            color: Color.fromARGB(255, 0, 74, 179),
                           ),
                         )),
                   ),
@@ -187,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.purple),
+                                MaterialStateProperty.all(Color.fromARGB(255, 0, 74, 179)),
                             shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -213,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: const Text(
                     "Esqueci minha senha",
                     style: TextStyle(
-                      color: Colors.red,
+                      color: Color.fromARGB(255, 0, 0, 0),
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
@@ -229,7 +232,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: const Text(
                     "Criar conta",
                     style: TextStyle(
-                      color: Colors.yellow,
+                      color: Color.fromARGB(255, 255, 206, 59),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
