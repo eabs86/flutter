@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 1, 159, 179), //Color.fromARGB(255, 236, 241, 243),
+        backgroundColor: const Color.fromARGB(255, 1, 159, 179), //Color.fromARGB(255, 236, 241, 243),
         body: SingleChildScrollView(
           //necessidade desses widget para não dar problema com teclado
           child: ConstrainedBox(
@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                             isObscureText
                                 ? Icons.visibility_off
                                 : Icons.visibility,
-                            color: Color.fromARGB(255, 0, 74, 179),
+                            color: const Color.fromARGB(255, 0, 74, 179),
                           ),
                         )),
                   ),

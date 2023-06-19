@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
+import '../models/historico_imc.dart';
+import '../models/imc.dart';
+import 'historico_page.dart';
 
 class CalculoPage extends StatefulWidget {
-  const CalculoPage({super.key});
+  final Function(HistoricoItem) onItemAdicionado;
+  const CalculoPage({super.key, required this.onItemAdicionado});
 
   @override
   State<CalculoPage> createState() => _CalculoPageState();
 }
 
 class _CalculoPageState extends State<CalculoPage> {
+  TextEditingController alturaController = TextEditingController();
+  TextEditingController pesoController = TextEditingController();
+  var imc = 0.0;
+  String classificacaoIMC = "";
+  String imcFixed="";
+
+  List<HistoricoItem> historicoIMC = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,12 +48,13 @@ class _CalculoPageState extends State<CalculoPage> {
                 Icons.height,
                 size: 50,
               )),
-              const Expanded(
+              Expanded(
                 flex: 3,
                 child: TextField(
-                    style: TextStyle(fontSize: 25),
+                  controller: alturaController,
+                    style: const TextStyle(fontSize: 25),
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: "Altura em cm")),
               ),
@@ -63,12 +76,13 @@ class _CalculoPageState extends State<CalculoPage> {
                 Icons.monitor_weight,
                 size: 50,
               )),
-              const Expanded(
+              Expanded(
                 flex: 3,
                 child: TextField(
-                    style: TextStyle(fontSize: 25),
+                  controller: pesoController,
+                    style: const TextStyle(fontSize: 25),
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: OutlineInputBorder(), hintText: "Peso em kg")),
               ),
               const Expanded(
@@ -90,7 +104,49 @@ class _CalculoPageState extends State<CalculoPage> {
                 child: SizedBox(
                   width: double.infinity,
                   child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        if (pesoController.text.trim() == "" || alturaController.text.trim() == "") {
+                          debugPrint("Peso e altura são obrigatórios");
+                          imcFixed="ERRO";
+                          classificacaoIMC="ERRO";
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  "Valores para peso e/ou altura incorretos",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),
+                                  ),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          setState(() {
+                            
+                          });
+                          
+                        }else{
+                            var pesoDouble = double.parse(pesoController.text);
+                            var alturaDouble = double.parse(alturaController.text);
+
+                            imc = IMC.calculoIMC(
+                              pesoDouble, 
+                              alturaDouble);
+                            classificacaoIMC = IMC.classificacaoIMC(imc);
+                            debugPrint(imc.toString());
+                            debugPrint(classificacaoIMC.toString());
+                            imcFixed= imc.toStringAsFixed(2);
+                            final novoItem = (HistoricoItem(
+                              peso: pesoDouble,
+                              altura: alturaDouble,
+                              imc: imc,
+                              classificacao: classificacaoIMC,
+                              data: DateTime.now().toString(),
+                            ));
+                            widget.onItemAdicionado(novoItem);
+                            setState(() {
+                              
+                          });
+                        }
+                      },
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(
                             const Color.fromARGB(255, 0, 74, 179)),
@@ -128,9 +184,9 @@ class _CalculoPageState extends State<CalculoPage> {
                           border: Border.all(
                             color: const Color.fromARGB(255, 0, 74, 179),
                           )),
-                      child: const Text(
-                        "VALOR",
-                        style: TextStyle(
+                      child: Text(
+                        imcFixed,
+                        style: const TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold),
                       ),
                     )),
@@ -146,7 +202,7 @@ class _CalculoPageState extends State<CalculoPage> {
                     "STATUS:",
                     textAlign: TextAlign.center,
                   )),
-              const Expanded(flex: 3, child: Text("RESULTADO DO IMC:")),
+              Expanded(flex: 3, child: Text(classificacaoIMC)),
               Expanded(
                   flex: 2,
                   child: InkWell(
@@ -170,7 +226,7 @@ class _CalculoPageState extends State<CalculoPage> {
                                     const SizedBox(height: 10),
                                     Expanded(
                                       child: Image.asset(
-                                        "lib/images//escala_imc.png",
+                                        "lib/images/escala_imc.png",
                                         ),
                                     ),
                                   ],

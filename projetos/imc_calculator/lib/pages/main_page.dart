@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../models/historico_imc.dart';
 import 'calculo_page.dart';
 import 'historico_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
+
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -13,6 +15,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   PageController controller = PageController(initialPage: 0);
   int posicaoPagina = 0;
+  List<HistoricoItem> historico = [];
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +34,13 @@ class _MainPageState extends State<MainPage> {
                   posicaoPagina = value;
                 });
               },
-              children: const [
-                CalculoPage(),
-                HistoricoPage()
+              children: [
+                CalculoPage(onItemAdicionado:(item){
+                  setState(() {
+                    historico.add(item);
+                  });
+                }),
+                HistoricoPage(historico: historico,)
               ],
             )
           ),
