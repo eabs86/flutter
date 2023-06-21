@@ -54,3 +54,7 @@ Quando for criar um componente Flutter:
 - Para utilizar as fontes, usa-se o pacote do google fonts.
     - Altera-se o arquivo do pubscec.yaml com a dependência.
     - Há necessidade de habilidar o modo desenvolvedor: start ms-settings:developers
+
+- Para trabalhar com shared_preferences:
+    - ir no pub.dev
+        - Site onde fica armazenado todos os pacotes do flutter
