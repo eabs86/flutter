@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tela_login/repositories/nivel_repository.dart';
+import 'package:tela_login/service/app_storage_service.dart';
 import 'package:tela_login/shared/widgets/text_label.dart';
 
 import '../repositories/linguagens_repository.dart';
@@ -21,12 +22,20 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
   String dataFormatada = "";
   var niveis = [];
   var nivelRepository = NivelRepository();
-  var nivelSelecionado="";
+  var nivelSelecionado ="";
   var linguagens =[];
   var linguagensRepository = LinguagensRepository();
-  var linguagensSelecionadas = [];
+  List<String> linguagensSelecionadas = [];
   double salarioEscolhido = 0;
   var tempoExperiencia =0;
+  AppStorageService storage = AppStorageService();
+
+  final String CHAVE_DADOS_CADASTRAIS_NOME = "CHAVE_DADOS_CADASTRAIS_NOME";
+  final String CHAVE_DADOS_CADASTRAIS_DATA_NASCIMENTO = "CHAVE_DADOS_CADASTRAIS_DATA_NASCIMENTO";
+  final String CHAVE_DADOS_CADASTRAIS_NIVEL = "CHAVE_DADOS_CADASTRAIS_NIVEL";
+  final String CHAVE_DADOS_CADASTRAIS_LINGUAGENS = "CHAVE_DADOS_CADASTRAIS_LINGUAGENS";
+  final String CHAVE_DADOS_CADASTRAIS_SALARIO = "CHAVE_DADOS_CADASTRAIS_SALARIO";
+  final String CHAVE_DADOS_CADASTRAIS_TEMPO_EXPERIENCIA = "CHAVE_DADOS_CADASTRAIS_TEMPO_EXPERIENCIA";
 
 
   List<DropdownMenuItem<int>> returnItens(int quantidadeMaxima){
@@ -47,8 +56,25 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
     niveis = nivelRepository.retornaNiveis();
     linguagens = linguagensRepository.retornaLinguagens();
     super.initState();
+    carregarDados();
   }
 
+  carregarDados() async {
+
+   
+    nomeController.text = await storage.getDadosCadastraisNome();
+    dataNascimentoController.text = await storage.getDadosCadastraisDataNascimento();
+    if (dataNascimentoController.text.isNotEmpty){
+      dataNascimento = DateTime.parse(dataNascimentoController.text);
+    }
+    
+    nivelSelecionado = await storage.getDadosCadastraisNivelExperiencia();
+    linguagensSelecionadas = await storage.getDadosCadastraisLinguagens();
+    tempoExperiencia = await storage.getDadosCadastraisTempoExperiencia();
+    salarioEscolhido = await storage.getDadosCadastraisSalario();
+    setState(() {
+  	  });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +123,7 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                         selected: nivelSelecionado==nivel,
                         groupValue: nivelSelecionado,
                         onChanged: (value) {
-                          debugPrint(value);
+                          debugPrint(value.toString());
                           setState(() {
                             nivelSelecionado = value.toString();                           
                           });
@@ -145,7 +171,7 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
 
               }),
               TextButton(
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       salvando = false;
                     });
@@ -186,7 +212,24 @@ class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
                       ));
                       return;
                     }
-                    
+                    await storage.setDadosCadastraisNome(nomeController.text);
+                    await storage.setDadosCadastraisDataNascimento(
+                      dataNascimento!
+                    );
+                    await storage.setDadosCadastraisNivelExperiencia(
+                      nivelSelecionado
+                    );
+                    await storage.setDadosCadastraisLinguagens(
+                      linguagensSelecionadas
+                    );
+
+                    await storage.setDadosCadastraisTempoExperiencia(
+                      tempoExperiencia
+                    );
+                    await storage.setDadosCadastraisSalario(
+                     salarioEscolhido
+                    );
+
                     setState(() {
                       
                       salvando = true;

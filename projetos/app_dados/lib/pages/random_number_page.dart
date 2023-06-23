@@ -1,7 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tela_login/service/app_storage_service.dart';
 
 class RandomNumbersPage extends StatefulWidget {
   const RandomNumbersPage({super.key});
@@ -11,11 +10,9 @@ class RandomNumbersPage extends StatefulWidget {
 }
 
 class _RandomNumbersPageState extends State<RandomNumbersPage> {
-  int? numeroGerado = 0;
-  int? quantidadeCliques = 0;
-  final CHAVE = "numeroGerado";
-  final CHAVE_CLIQUES = "quantidadeCliques";
-  late SharedPreferences storage; //garante que quando iniciar a aplicação o storage vai receber o valor
+  int numeroGerado = 0;
+  int quantidadeCliques = 0;
+  AppStorageService storage = AppStorageService(); //garante que quando iniciar a aplicação o storage vai receber o valor
   
   @override
   void initState() {
@@ -24,11 +21,12 @@ class _RandomNumbersPageState extends State<RandomNumbersPage> {
   }
 
   carregarDados() async {
-    storage = await SharedPreferences.getInstance();
-    setState(() {
-      numeroGerado = storage.getInt(CHAVE);
-      quantidadeCliques = storage.getInt(CHAVE_CLIQUES);
-    });
+
+    numeroGerado = await storage.getNumeroAleatorio();
+    quantidadeCliques = await storage.getQuantidadeCliques();
+    
+    setState(() {});
+
   }
 
   @override
@@ -55,11 +53,11 @@ class _RandomNumbersPageState extends State<RandomNumbersPage> {
             var random = Random();
             setState(() {
               numeroGerado = random.nextInt(1000);
-              quantidadeCliques = (quantidadeCliques ?? 0) +1;
+              quantidadeCliques = (quantidadeCliques) +1;
 
             });
-              storage.setInt(CHAVE, numeroGerado!);
-              storage.setInt(CHAVE_CLIQUES, quantidadeCliques!);
+              await storage.setNumeroAleatorio(numeroGerado);
+              await storage.setQuantidadeCliques(quantidadeCliques);
 
         }),
       ),
