@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:tela_login/pages/configuracoes_page.dart';
 import 'package:tela_login/pages/login_page.dart';
 
-import '../../pages/dados_cadastrais.dart';
-import '../../pages/random_number_page.dart';
+import '../../pages/configuracoes/configuracoes_page_hive_page.dart';
+import '../../pages/dados_cadastrais/dados_cadastrais_hive.dart';
+// import '../../pages/dados_cadastrais/dados_cadastrais_shared_preferences.dart';
+import '../../pages/numeros_aleatorios/random_number_hive_page.dart';
+
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -65,7 +67,7 @@ class CustomDrawer extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          const DadosCadastraisPage(texto: "Meus Dados")));
+                          const DadosCadastraisHivePage(texto: "Meus Dados")));
             }),
         const Divider(),
         const SizedBox(
@@ -86,7 +88,7 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const ConfiguracoesPage();
+                return const ConfiguracoesHivePage();
                 }));
             }),
         const Divider(),
@@ -149,7 +151,7 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return const RandomNumbersPage();
+                return const RandomNumbersHivePage();
                 }));
               }),
         const Divider(),

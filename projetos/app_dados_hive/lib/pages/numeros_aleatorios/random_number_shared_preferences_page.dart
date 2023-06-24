@@ -2,14 +2,14 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:tela_login/service/app_storage_service.dart';
 
-class RandomNumbersPage extends StatefulWidget {
-  const RandomNumbersPage({super.key});
+class RandomNumbersSharedPreferencesPage extends StatefulWidget {
+  const RandomNumbersSharedPreferencesPage({super.key});
 
   @override
-  State<RandomNumbersPage> createState() => _RandomNumbersPageState();
+  State<RandomNumbersSharedPreferencesPage> createState() => _RandomNumbersSharedPreferencesPageState();
 }
 
-class _RandomNumbersPageState extends State<RandomNumbersPage> {
+class _RandomNumbersSharedPreferencesPageState extends State<RandomNumbersSharedPreferencesPage> {
   int numeroGerado = 0;
   int quantidadeCliques = 0;
   AppStorageService storage = AppStorageService(); //garante que quando iniciar a aplicação o storage vai receber o valor

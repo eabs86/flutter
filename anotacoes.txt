@@ -58,3 +58,20 @@ Quando for criar um componente Flutter:
 - Para trabalhar com shared_preferences:
     - ir no pub.dev
         - Site onde fica armazenado todos os pacotes do flutter
+
+- Banco de dados Hive
+    - Trabalha diferentemente do shared_preferences
+        - É um banco NoSQL
+    - Trabalha com "boxes", onde são colocadas as informações.
+    - Trabalha também com Box Collections
+    - Trabalha com objetos
+    - Outros pacotes que podem ajudar:
+        - hive_generator:
+            - Para fazer uso dos adapters, onde ele consegue salvar uma classe inteira.
+        - build_runner
+            - É um pacote que serve para rodar comandos para gerar arquivos, icones da aplicação, etc.
+            - É um auxiliador de geração de código.
+            - Para gerar os arquivos usa-se o comando: flutter pub run build_runner build
+
+- Sobre o dev_dependecies:
+    - Lá se colocam pacotes onde não serão incluídos no build. São pacotes utilizados apenas para desenvolvimento.

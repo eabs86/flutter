@@ -4,18 +4,18 @@ import 'package:tela_login/repositories/nivel_repository.dart';
 import 'package:tela_login/service/app_storage_service.dart';
 import 'package:tela_login/shared/widgets/text_label.dart';
 
-import '../repositories/linguagens_repository.dart';
+import '../../repositories/linguagens_repository.dart';
 
-class DadosCadastraisPage extends StatefulWidget {
+class DadosCadastraisHivePage extends StatefulWidget {
   final String texto;
 
-  const DadosCadastraisPage({super.key, required this.texto});
+  const DadosCadastraisHivePage({super.key, required this.texto});
 
   @override
-  State<DadosCadastraisPage> createState() => _DadosCadastraisPageState();
+  State<DadosCadastraisHivePage> createState() => _DadosCadastraisHivePageState();
 }
 
-class _DadosCadastraisPageState extends State<DadosCadastraisPage> {
+class _DadosCadastraisHivePageState extends State<DadosCadastraisHivePage> {
   var nomeController = TextEditingController(text: "");
   var dataNascimentoController = TextEditingController(text: "");
   DateTime? dataNascimento;
