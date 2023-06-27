@@ -72,6 +72,7 @@ Quando for criar um componente Flutter:
             - É um pacote que serve para rodar comandos para gerar arquivos, icones da aplicação, etc.
             - É um auxiliador de geração de código.
             - Para gerar os arquivos usa-se o comando: flutter pub run build_runner build
+                - Sempre que fizer alguma alteração na classe é preciso rodar o build runner
 
 - Sobre o dev_dependecies:
     - Lá se colocam pacotes onde não serão incluídos no build. São pacotes utilizados apenas para desenvolvimento.

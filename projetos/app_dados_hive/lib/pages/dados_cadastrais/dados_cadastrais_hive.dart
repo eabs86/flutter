@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:tela_login/model/dados_cadastrais_model.dart';
 import 'package:tela_login/repositories/nivel_repository.dart';
-import 'package:tela_login/service/app_storage_service.dart';
 import 'package:tela_login/shared/widgets/text_label.dart';
 
+import '../../repositories/dados_cadastrais_repository.dart';
 import '../../repositories/linguagens_repository.dart';
 
 class DadosCadastraisHivePage extends StatefulWidget {
@@ -16,19 +17,16 @@ class DadosCadastraisHivePage extends StatefulWidget {
 }
 
 class _DadosCadastraisHivePageState extends State<DadosCadastraisHivePage> {
+  late DadosCadastraisRepository dadosCadastraisRepository;
+  var dadosCadastraisModel = DadosCadastraisModel.vazio(); 
+
   var nomeController = TextEditingController(text: "");
   var dataNascimentoController = TextEditingController(text: "");
-  DateTime? dataNascimento;
   String dataFormatada = "";
   var niveis = [];
   var nivelRepository = NivelRepository();
-  var nivelSelecionado ="";
   var linguagens =[];
   var linguagensRepository = LinguagensRepository();
-  List<String> linguagensSelecionadas = [];
-  double salarioEscolhido = 0;
-  var tempoExperiencia =0;
-  AppStorageService storage = AppStorageService();
 
   final String CHAVE_DADOS_CADASTRAIS_NOME = "CHAVE_DADOS_CADASTRAIS_NOME";
   final String CHAVE_DADOS_CADASTRAIS_DATA_NASCIMENTO = "CHAVE_DADOS_CADASTRAIS_DATA_NASCIMENTO";
@@ -60,18 +58,10 @@ class _DadosCadastraisHivePageState extends State<DadosCadastraisHivePage> {
   }
 
   carregarDados() async {
-
-   
-    nomeController.text = await storage.getDadosCadastraisNome();
-    dataNascimentoController.text = await storage.getDadosCadastraisDataNascimento();
-    if (dataNascimentoController.text.isNotEmpty){
-      dataNascimento = DateTime.parse(dataNascimentoController.text);
-    }
-    
-    nivelSelecionado = await storage.getDadosCadastraisNivelExperiencia();
-    linguagensSelecionadas = await storage.getDadosCadastraisLinguagens();
-    tempoExperiencia = await storage.getDadosCadastraisTempoExperiencia();
-    salarioEscolhido = await storage.getDadosCadastraisSalario();
+    dadosCadastraisRepository = await DadosCadastraisRepository.carregar();
+    dadosCadastraisModel = dadosCadastraisRepository.obterDados();
+    nomeController.text = dadosCadastraisModel.nome ?? "";
+    dataNascimentoController.text = dadosCadastraisModel.dataNascimento == null ? "" : dadosCadastraisModel.dataNascimento.toString();
     setState(() {
   	  });
   }
@@ -110,7 +100,7 @@ class _DadosCadastraisHivePageState extends State<DadosCadastraisHivePage> {
                     dataFormatada = dateFormat.format(data);
                     dataNascimentoController.text = dataFormatada;
                     // dataNascimentoController.text = data.toString();
-                    dataNascimento = data;
+                    dadosCadastraisModel.dataNascimento = data;
                   }
                 },
               ),
@@ -120,12 +110,12 @@ class _DadosCadastraisHivePageState extends State<DadosCadastraisHivePage> {
                     .map((nivel) => RadioListTile(
                         title: Text(nivel.toString()),
                         value: nivel.toString(),
-                        selected: nivelSelecionado==nivel,
-                        groupValue: nivelSelecionado,
+                        selected: dadosCadastraisModel.nivelExperiencia==nivel,
+                        groupValue: dadosCadastraisModel.nivelExperiencia,
                         onChanged: (value) {
                           debugPrint(value.toString());
                           setState(() {
-                            nivelSelecionado = value.toString();                           
+                            dadosCadastraisModel.nivelExperiencia = value.toString();                           
                           });
                         })).toList(),
               ]),
@@ -134,12 +124,12 @@ class _DadosCadastraisHivePageState extends State<DadosCadastraisHivePage> {
                 ...linguagens.map((linguagem) => CheckboxListTile(
                     title: Text(linguagem.toString()),
                     // selected: linguagensSelecionadas==linguagem,
-                    value: linguagensSelecionadas.contains(linguagem),
+                    value: dadosCadastraisModel.linguagens.contains(linguagem),
                     onChanged: (value) {
                       if(value==true){
-                        linguagensSelecionadas.add(linguagem);
+                        dadosCadastraisModel.linguagens.add(linguagem);
                       }else{
-                        linguagensSelecionadas.remove(linguagem);
+                        dadosCadastraisModel.linguagens.remove(linguagem);
                       }
                       setState(() {
                       });
@@ -148,24 +138,24 @@ class _DadosCadastraisHivePageState extends State<DadosCadastraisHivePage> {
               ],),
               const TextLabel(texto: "Tempo de Experiência"),
               DropdownButton(
-                value:tempoExperiencia,
+                value:dadosCadastraisModel.tempoExperiencia,
                 isExpanded: true,
                 items:returnItens(50),
                 onChanged: (value){
                   setState(() {
-                    tempoExperiencia = int.parse(value.toString());
+                    dadosCadastraisModel.tempoExperiencia = int.parse(value.toString());
                   });
 
               }),
               
-              TextLabel(texto: "Pretensão Salarial: R\$ ${salarioEscolhido.round().toString()} "),
+              TextLabel(texto: "Pretensão Salarial: R\$ ${dadosCadastraisModel.salario?.round().toString()} "),
               Slider(
                 min:0.0,
                 max: 15000,
-                value: salarioEscolhido,
+                value: dadosCadastraisModel.salario??0,
                 onChanged: (double value){
                   setState(() {
-                    salarioEscolhido = value;
+                    dadosCadastraisModel.salario = value;
                     // debugPrint(salarioEscolhido.toString());
                   });
 
@@ -182,53 +172,38 @@ class _DadosCadastraisHivePageState extends State<DadosCadastraisHivePage> {
                       ));
                       return;
                     }
-                    if(dataNascimento==null){
+                    if(dadosCadastraisModel.dataNascimento==null){
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Data de Nascimento Inválida!"),
                       ));
                       return;
                     }
-                    if(nivelSelecionado.trim()==""){
+                    if(dadosCadastraisModel.nivelExperiencia == null || dadosCadastraisModel.nivelExperiencia!.trim()==""){
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Selecione um nível de experiência!"),
                       ));
                       return;
                     }
-                    if(linguagensSelecionadas.isEmpty){
+                    if(dadosCadastraisModel.linguagens.isEmpty){
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Selecione pelo menos 1 linguagem!"),
                       ));
                       return;
                     }
-                    if(salarioEscolhido==0){
+                    if(dadosCadastraisModel.salario==0 || dadosCadastraisModel.salario==null){
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Pretensão salarial incorreta!"),
                       ));
                       return;
                     }
-                    if(tempoExperiencia==0){
+                    if(dadosCadastraisModel.tempoExperiencia==null || dadosCadastraisModel.tempoExperiencia==0){
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Tempo de experiência precisa ser maior que 0!"),
                       ));
                       return;
                     }
-                    await storage.setDadosCadastraisNome(nomeController.text);
-                    await storage.setDadosCadastraisDataNascimento(
-                      dataNascimento!
-                    );
-                    await storage.setDadosCadastraisNivelExperiencia(
-                      nivelSelecionado
-                    );
-                    await storage.setDadosCadastraisLinguagens(
-                      linguagensSelecionadas
-                    );
-
-                    await storage.setDadosCadastraisTempoExperiencia(
-                      tempoExperiencia
-                    );
-                    await storage.setDadosCadastraisSalario(
-                     salarioEscolhido
-                    );
+                    dadosCadastraisModel.nome = nomeController.text;
+                    dadosCadastraisRepository.salvar(dadosCadastraisModel);
 
                     setState(() {
                       
@@ -242,13 +217,6 @@ class _DadosCadastraisHivePageState extends State<DadosCadastraisHivePage> {
                       Navigator.pop(context);
                     });
 
-
-                    debugPrint(nomeController.text);
-                    debugPrint(dataNascimento.toString());
-                    debugPrint(nivelSelecionado.toString());
-                    debugPrint(linguagensSelecionadas.toString());
-                    debugPrint(salarioEscolhido.toString());
-                    debugPrint(tempoExperiencia.toString());
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("Dados salvos com sucesso!"),
                         backgroundColor: Colors.green,

@@ -4,7 +4,8 @@ import 'package:tela_login/pages/card_page.dart';
 import 'package:tela_login/pages/image_assets.dart';
 import 'package:tela_login/pages/list_view.dart';
 import 'package:tela_login/pages/list_view_horizontal.dart';
-import 'package:tela_login/pages/tarefa_page.dart';
+import 'package:tela_login/pages/tarefa_page/tarefa_hive_page.dart';
+// import 'package:tela_login/pages/tarefa_page/tarefa_page.dart';
 import 'package:tela_login/shared/widgets/custom_drawer.dart';
 
 class MainPage extends StatefulWidget {
@@ -42,7 +43,7 @@ class _MainPageState extends State<MainPage> {
                     CardPage(),
                     ImageAssetsPage(),
                     ListViewPage(),
-                    TarefasPage(),
+                    TarefasHivePage(),
                     ListViewHorizontalPage()
                   ],
                 ),
