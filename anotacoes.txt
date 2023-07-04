@@ -76,3 +76,10 @@ Quando for criar um componente Flutter:
 
 - Sobre o dev_dependecies:
     - Lá se colocam pacotes onde não serão incluídos no build. São pacotes utilizados apenas para desenvolvimento.
+
+- Armazenamento utilizano SQLite
+    - No flutter há diversos recursos como proteção contra SQL Injection
+    - Há tambem até dispensa do código ser escrito em queries de SQL 
+    - O procedimento é: abrir o banco de dados e inserir comandos nele
+    - Trabalha com transação, onde, caso de algum erro, ele faz o rollback em tudo.
+    - Armazenamento feito em linhas e colunas
